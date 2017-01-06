@@ -14,10 +14,10 @@
          <en><![CDATA[This plugin allows to identify tickets requested by VIP groups members, by adding a column in tickets list.]]></en>
       </long>
    </description>
-   <homepage>https://github.com/Probesys/glpi-plugins-ticketmail</homepage>
-   <download>https://github.com/Probesys/glpi-plugins-ticketmail/releases</download>
-   <issues>https://github.com/Probesys/glpi-plugins-ticketmail/issues</issues>
-   <readme>https://github.com/Probesys/glpi-plugins-ticketmail/README.md</readme>
+   <homepage>https://github.com/Probesys/glpi-plugins-vip</homepage>
+   <download>https://github.com/Probesys/glpi-plugins-vip/releases</download>
+   <issues>https://github.com/Probesys/glpi-plugins-vip/issues</issues>
+   <readme>https://github.com/Probesys/glpi-plugins-vip/README.md</readme>
    <authors>
       <author>Philippe GODOT,Maxime Bonillo</author>
    </authors>
