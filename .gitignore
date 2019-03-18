@@ -1,0 +1,9 @@
+.svn/
+api/vendor
+api/mailtemplates/cache
+npm-debug.log
+api/config.php
+*.swp
+/frontend/app/scripts/conf.js
+/misc/illuminate_queries.log
+.vagrant
