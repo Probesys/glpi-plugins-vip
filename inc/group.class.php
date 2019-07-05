@@ -191,5 +191,3 @@ class PluginVipGroup extends CommonDBTM {
    }
 
 }
-
-?>

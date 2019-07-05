@@ -162,7 +162,7 @@ class PluginVipProfile extends Profile {
    static function migrateOneProfile($profiles_id) {
       global $DB;
       //Cannot launch migration if there's nothing to migrate...
-      if (!TableExists('glpi_plugin_vip_profiles')) {
+      if (!$DB->tableExists('glpi_plugin_vip_profiles')) {
          return true;
       }
 
@@ -269,5 +269,3 @@ class PluginVipProfile extends Profile {
    }
    
 }
-
-?>

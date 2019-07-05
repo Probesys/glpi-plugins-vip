@@ -37,4 +37,3 @@ sort($test);
 Search::show('PluginVipTicket');
 
 Html::footer();
-?>

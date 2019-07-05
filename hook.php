@@ -3,11 +3,11 @@
 function plugin_vip_install() {
    global $DB;
    // Création de la table uniquement lors de la première installation
-   if (!TableExists("glpi_plugin_vip_groups")) {
+   if (!$DB->tableExists("glpi_plugin_vip_groups")) {
       $DB->runFile(GLPI_ROOT . "/plugins/vip/install/sql/empty-1.1.2.sql");
    }
 
-   if (TableExists('glpi_plugin_vip_tickets')) {
+   if ($DB->tableExists('glpi_plugin_vip_tickets')) {
       $tables = array("glpi_plugin_vip_tickets");
 
       foreach ($tables as $table) {
@@ -24,9 +24,9 @@ function plugin_vip_install() {
 function plugin_vip_uninstall() {
    global $DB;
 
-   $tables = array("glpi_plugin_vip_profiles", 
+   $tables = ["glpi_plugin_vip_profiles", 
                    "glpi_plugin_vip_groups", 
-                   "glpi_plugin_vip_tickets");
+                   "glpi_plugin_vip_tickets"];
 
    foreach ($tables as $table) {
       $DB->query("DROP TABLE IF EXISTS `$table`;");
@@ -47,32 +47,39 @@ function plugin_vip_getPluginsDatabaseRelations() {
 
 function plugin_vip_getAddSearchOptions($itemtype) {
    
-   $sopt = array();
-    
+   $options = [];
+   
    if ($_SESSION['glpiactiveprofile']['interface'] == 'central' 
          && Session::haveRight('plugin_vip', READ)) {
       switch ($itemtype) {
+          
          case 'Ticket':
-            $rng1                      = 10100;
-            $sopt[$rng1]['table']      = 'glpi_plugin_vip_groups';
-            $sopt[$rng1]['field']      = 'isvip';
-            $sopt[$rng1]['name']       = 'Vip';
-            $sopt[$rng1]['datatype']   = 'bool';
-            $sopt[$rng1]['massiveaction']   = false;
+             $options[] = [
+                'id'            => 10100,
+                'name'          => 'VIP',
+                'table'         => 'glpi_plugin_vip_groups',             
+                'field'         => 'isvip',              
+                'massiveaction' => false,
+                'datatype' => 'bool'
+            ];
+            
+            
             break;
          case 'Group':
-            $rng1                     = 150;
-            $sopt[$rng1]['table']     = 'glpi_plugin_vip_groups';
-            $sopt[$rng1]['field']     = 'isvip';
-            $sopt[$rng1]['linkfield'] = 'id';
-            $sopt[$rng1]['name']      = 'Vip';
-            $sopt[$rng1]['datatype']  = 'bool';
-            $sopt[$rng1]['massiveaction']   = false;
+             $options[] = [
+              'id'            => 150,
+              'name'          => 'VIP',                        
+              'table'         => 'glpi_plugin_vip_groups',             
+              'field'         => 'isvip',              
+              'massiveaction' => false,
+              'datatype' => 'bool'
+            ]; 
+            
             break;
       }
    }
    
-   return $sopt;
+   return $options;
 }
 
 function plugin_vip_MassiveActions($type) {	
@@ -91,8 +98,15 @@ function plugin_vip_addLeftJoin($type,$ref_table,$new_table,$linkfield,&$already
             $out .= " LEFT JOIN `glpi_groups_users` ON (`glpi_tickets_users`.`users_id` = `glpi_groups_users`.`users_id`)";
             $out .= " LEFT JOIN `glpi_plugin_vip_groups` ON (`glpi_groups_users`.`groups_id` = `glpi_plugin_vip_groups`.`id`)";
 
-            return $out;
+            return $out;            
       }
+   }
+   if ($ref_table == 'glpi_groups') {
+       switch ($new_table) {
+         case "glpi_plugin_vip_groups" :
+            $out = " LEFT JOIN `glpi_plugin_vip_groups` ON (`glpi_groups`.`id` = `glpi_plugin_vip_groups`.`id`)"; 
+            return $out;
+      } 
    }
 
    return "";
@@ -109,7 +123,8 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
       case 'Ticket':
          switch ($table.'.'.$field) {
             case "glpi_plugin_vip_groups.isvip" :
-               if (PluginVipTicket::isTicketVip($data[0][0]['name'])) {
+               //if (PluginVipTicket::isTicketVip($data[0][0]['name'])) {
+               if (PluginVipTicket::isTicketVip($data['id'])) {    
                   return "<img src=\"".$CFG_GLPI['root_doc']."/plugins/vip/pics/vip.png\" alt='vip' >";
                }
                break;
@@ -129,4 +144,3 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
    return " ";
 }
 
-?>

@@ -1,22 +1,30 @@
 <?php
 
+// Version of the plugin
+define('PLUGIN_VIP_VERSION', "1.3.0");
+// Minimal GLPI version, inclusive
+define ("PLUGIN_VIP_GLPI_MIN_VERSION", "9.4");
+// Maximum GLPI version, exclusive
+define ("PLUGIN_VIP_GLPI_MAX_VERSION", "9.5");
+
 function plugin_version_vip() {
 
    return array('name'           => "VIP",
-                'version'        => '1.2.0',
+                'version'        => PLUGIN_VIP_VERSION,
                 'author'         => 'Probesys',
                 'license'        => 'GPLv3+',
                 'homepage'       => 'http://www.probesys.com',
-                'minGlpiVersion' => '0.90'); // For compatibility / no install in version < 0.85
+                'minGlpiVersion' => PLUGIN_VIP_GLPI_MIN_VERSION); // For compatibility / no install in version < 0.85
 }
 
 function plugin_vip_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION, '0.90', 'lt')) {
-      echo "This plugin requires GLPI >= 0.90";
-      return false;
-   }
-   return true;
+   $success = true;
+    if (version_compare(GLPI_VERSION, PLUGIN_VIP_GLPI_MIN_VERSION, 'lt')) {
+       echo 'This plugin requires GLPI >= ' . PLUGIN_VIP_GLPI_MIN_VERSION . '<br>';
+       $success = false;
+    }
+    return $success;
 }
 
 // Uninstall process for plugin : need to return true if succeeded
@@ -53,4 +61,3 @@ function plugin_init_vip() {
    }
 }
 
-?>

@@ -74,4 +74,3 @@ class PluginVipTicket extends CommonDBTM {
 
 }
 
-?>

@@ -34,4 +34,4 @@ if (isset($_POST['update_vip_group'])) {
    Html::back();
 }
 
-?>
+
