@@ -56,5 +56,3 @@ switch($_POST['action']){
 
       echo json_encode($params);
 }
-
-?>
