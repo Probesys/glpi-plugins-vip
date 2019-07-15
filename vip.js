@@ -79,10 +79,14 @@
                   }
 
                   // We execute the code only if the ticket form display request is done
-                  console.log('option.url = ' + option.url);
-                  console.log('option.data = ' + option.data);
+                  //console.log('option.url = ' + option.url);
+                  //console.log('option.data = ' + option.data);
+                  //console.log('------');
                   if (option.url !== undefined
-                          && (option.url.indexOf("ajax/" + tab) > 0 || option.url.indexOf("ajax/dropdownItilActors.php") > 0)
+                          && (
+                                  option.url.indexOf("ajax/" + tab) > 0
+                                  || option.url.indexOf("ajax/dropdownItilActors.php") > 0
+                                  )
                           && option.data !== undefined
                           /*&& ((option.data !== undefined
                            && option.data.indexOf("user") > 0
@@ -95,9 +99,8 @@
                      //console.log('option.data = ' + option.data);
                      //console.log('inputName = ' + inputName);
                      idSelect = $("select[name='" + inputName + "']").attr('id');
-                     console.log('id = ' + idSelect);
+                     //console.log('id = ' + idSelect);
                      // Get ticket informations
-                     //$('#' + idSelect).off('select2:select');
                      $.ajax({
                         url: object.params['root_doc'] + '/plugins/vip/ajax/ticket.php',
                         type: "POST",
@@ -223,11 +226,13 @@
                   // Color requesters already added
                   if (option.url !== undefined
                           && items_id > 0
-                          && (option.url.indexOf('vip/ajax/loadscripts.php') > 0 || option.url.indexOf('common.tabs.php') > 0)) {
+                          && (option.url.indexOf('vip/ajax/loadscripts.php') > 0 || option.url.indexOf('updatecurrenttab') > 0)) {
 
                      setTimeout(function() {
-                        var item_bloc = $("table[id='mainformtable5'] tr:last-child td:first-child img[src*='users.png']");
-                        if (item_bloc.length != 0 && item_bloc[0].nextSibling.nodeValue != null && $("span[id*='vip_requester']").length == 0) {
+                        var item_bloc = $("#mainformtable5 .actor_row");
+                        //console.log('item_bloc = ' + item_bloc.length);
+                        if (item_bloc.length !== 0 && $("span[id*='vip_requester']").length === 0) {
+
                            $.ajax({
                               url: object.params['root_doc'] + '/plugins/vip/ajax/ticket.php',
                               type: "POST",
@@ -240,16 +245,27 @@
                                  var ticketVip = false;
                                  $.each(vip, function(index, val) {
                                     $.each(response.used, function(index2, val2) {
-                                       var requesterText = item_bloc[index2].nextSibling;
-                                       if (val.id == val2 && requesterText.nodeValue != null) {
-                                          $("<span id='vip_requester" + index2 + "' class='red'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
-                                          $(requesterText).remove();
+                                       var searchUrl = object.params['root_doc'] + '/front/user.form.php?id=' + val.id;
+                                       //console.log('searchUrl = ' + searchUrl);
+                                       // recherche link avec cet url
+                                       var linkActor = $('a[href="' + searchUrl + '"]');
+                                       if (linkActor.length !== 0 && !linkActor.hasClass('vipActor')) {
+                                          linkActor.addClass('vipActor');
+                                          linkActor.prepend("&nbsp;<img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>&nbsp;");
                                           ticketVip = true;
+                                          var previousUserIncon = linkActor.closest('.actor_row');
+                                          previousUserIncon.addClass('red');
                                        }
+                                       /*var requesterText = item_bloc[index2].nextSibling;
+                                        if (val.id == val2 && requesterText.nodeValue != null) {
+                                        $("<span id='vip_requester" + index2 + "' class='red'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
+                                        $(requesterText).remove();
+                                        ticketVip = true;
+                                        }*/
                                     });
                                  });
-                                 if (ticketVip && $('#vip_img').length == 0) {
-                                    $("table[id='mainformtable5'] tr:first-child th:first-child").append("&nbsp;<img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
+                                 if (ticketVip && $('#vip_img').length === 0) {
+                                    $("#mainformtable5 .actor_row .fas.fa-user").append("&nbsp;<img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
                                  }
                               }
                            });
