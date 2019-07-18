@@ -88,10 +88,6 @@
                                   || option.url.indexOf("ajax/dropdownItilActors.php") > 0
                                   )
                           && option.data !== undefined
-                          /*&& ((option.data !== undefined
-                           && option.data.indexOf("user") > 0
-                           && option.data.indexOf("requester") > 0)
-                           || option.data === undefined)*/
                           ) {
                      //debugger;
                      //console.log('tab = ' + tab);
@@ -171,7 +167,7 @@
                                     // Red if VIP
                                     $.each(vip, function(index2, val2) {
                                        if (result.id == val2.id) {
-                                          text = '<span class="vip red">' + text + '</span>';
+                                          text = '<div class="vip red">' + text + '</div>';
                                        }
                                     });
 
@@ -191,8 +187,16 @@
                                           i = i - 1;
                                        }
                                        _elt.html(a + '&raquo;' + markup);
+
                                     } else {
+
+                                       if (markup.indexOf('vip red') > 0) {
+                                          markup = markup.replace('&lt;div class="vip red"&gt;', '');
+                                          markup = markup.replace(jQuery.fn.select2.defaults.defaults.escapeMarkup('</div>'), '');
+                                          _elt.addClass('vip red');
+                                       }
                                        _elt.html(markup);
+
                                     }
                                  }
 
@@ -205,7 +209,8 @@
                                  var ticketVip = false;
                                  $.each(vip, function(index2, val2) {
                                     if (result.id == val2.id) {
-                                       var text = '<span style="color:red;">' + text + '</span>';
+                                       //var text = '<span style="color:red;">' + text + '</span>';
+                                       var text = '<div class="vip red">' + text + '</div>';
                                        ticketVip = true;
                                     }
                                  });
