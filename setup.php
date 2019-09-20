@@ -11,7 +11,7 @@ function plugin_version_vip() {
 
    return array('name'           => "VIP",
                 'version'        => PLUGIN_VIP_VERSION,
-                'author'         => 'Probesys',
+                'author'         => '<a href="http://www.probesys.com">PROBESYS</a>',
                 'license'        => 'GPLv3+',
                 'homepage'       => 'http://www.probesys.com',
                 'minGlpiVersion' => PLUGIN_VIP_GLPI_MIN_VERSION); // For compatibility / no install in version < 0.85
