@@ -19,7 +19,9 @@
    <issues>https://github.com/Probesys/glpi-plugins-vip/issues</issues>
    <readme>https://github.com/Probesys/glpi-plugins-vip/README.md</readme>
    <authors>
-      <author>Philippe GODOT,Maxime Bonillo</author>
+	   <author>PROBESYS</author>
+	   <author>Philippe GODOT</author>
+	   <author>Maxime Bonillo</author>
    </authors>
    <versions>
 	  <version>
