@@ -38,7 +38,7 @@ function install() {
    $migration = new Migration(100);
 
    // Install script
-   $DB->runFile(GLPI_ROOT."/plugins/vip/install/sql/empty-1.0.0.sql");
+   $DB->runFile(PLUGIN_VIP_DIR."/install/sql/empty-1.0.0.sql");
 
    $query = "INSERT INTO glpi_plugin_vip_tickets
                         SELECT id, '0'

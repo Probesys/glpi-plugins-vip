@@ -44,6 +44,7 @@ switch ($_POST['action']) {
             $params['root_doc']                = $CFG_GLPI['root_doc'];
             $params['minimumResultsForSearch'] = $CFG_GLPI['ajax_limit_count'];
             $params['emptyValue']              = Dropdown::EMPTY_VALUE;
+            $params['plugin_dir']              = PLUGIN_VIP_WEB_DIR; 
             
             echo "<script type='text/javascript'>";
             echo "var viptest = $(document).initVipPlugin(".json_encode($params).");";
@@ -54,4 +55,3 @@ switch ($_POST['action']) {
       break;
 }
 
-?>

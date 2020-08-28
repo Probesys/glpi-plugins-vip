@@ -27,11 +27,11 @@
  */
 (function($) {
    $.fn.initVipPlugin = function(options) {
-
       var object = this;
       init();
       // Start the plugin
       function init() {
+          
          object.params = new Array();
          object.params['entities_id'] = 0;
          object.params['page_limit'] = 0;
@@ -44,6 +44,10 @@
                   object.params[index] = val;
                }
             });
+         }
+         // get plugin_path
+         if(GLPI_PLUGINS_PATH !== 'undefined' && 'vip' in GLPI_PLUGINS_PATH) {
+            object.params['plugin_dir'] = '/' + GLPI_PLUGINS_PATH['vip'];
          }
       }
 
@@ -98,7 +102,7 @@
                      //console.log('id = ' + idSelect);
                      // Get ticket informations
                      $.ajax({
-                        url: object.params['root_doc'] + '/plugins/vip/ajax/ticket.php',
+                        url: object.params['root_doc'] + '/ajax/ticket.php',
                         type: "POST",
                         dataType: "json",
                         data: {
@@ -147,7 +151,7 @@
                                  }
                               },
                               templateResult: function(result) {
-
+                                  
                                  var _elt = $('<span></span>');
                                  _elt.attr('title', result.title);
                                  if (typeof query.term !== 'undefined' && typeof result.rendered_text !== 'undefined') {
@@ -215,7 +219,7 @@
                                     }
                                  });
                                  if (ticketVip && $('#vip_img').length == 0) {
-                                    $("table[id='mainformtable5'] tr:first-child th:first-child").append("&nbsp;<img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
+                                    $("table[id='mainformtable5'] tr:first-child th:first-child").append("&nbsp;<img id='vip_img' src='" + object.params['plugin_dir'] + "/pics/vip.png'>");
                                  } else if (!alreadyVip) {
                                     $("#vip_img").remove();
                                  }
@@ -239,7 +243,7 @@
                         if (item_bloc.length !== 0 && $("span[id*='vip_requester']").length === 0) {
 
                            $.ajax({
-                              url: object.params['root_doc'] + '/plugins/vip/ajax/ticket.php',
+                              url: object.params['plugin_dir'] + '/ajax/ticket.php',
                               type: "POST",
                               dataType: "json",
                               data: {
@@ -256,7 +260,7 @@
                                        var linkActor = $('a[href="' + searchUrl + '"]');
                                        if (linkActor.length !== 0 && !linkActor.hasClass('vipActor')) {
                                           linkActor.addClass('vipActor');
-                                          linkActor.prepend("&nbsp;<img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>&nbsp;");
+                                          linkActor.prepend("&nbsp;<img id='vip_img' src='" + object.params['plugin_dir'] + "/pics/vip.png'>&nbsp;");
                                           ticketVip = true;
                                           var previousUserIncon = linkActor.closest('.actor_row');
                                           previousUserIncon.addClass('red');
@@ -270,7 +274,7 @@
                                     });
                                  });
                                  if (ticketVip && $('#vip_img').length === 0) {
-                                    $("#mainformtable5 .actor_row .fas.fa-user").append("&nbsp;<img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
+                                    $("#mainformtable5 .actor_row .fas.fa-user").append("&nbsp;<img id='vip_img' src='" + object.params['plugin_dir'] + "/pics/vip.png'>");
                                  }
                               }
                            });

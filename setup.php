@@ -1,11 +1,17 @@
 <?php
 
 // Version of the plugin
-define('PLUGIN_VIP_VERSION', "1.3.1");
+define('PLUGIN_VIP_VERSION', "1.4.0");
 // Minimal GLPI version, inclusive
 define ("PLUGIN_VIP_GLPI_MIN_VERSION", "9.4");
 // Maximum GLPI version, exclusive
-define ("PLUGIN_VIP_GLPI_MAX_VERSION", "9.5");
+define ("PLUGIN_VIP_GLPI_MAX_VERSION", "9.6");
+if (!defined("PLUGIN_VIP_DIR")) {
+   define("PLUGIN_VIP_DIR", Plugin::getPhpDir("vip"));
+}
+if (!defined("PLUGIN_VIP_WEB_DIR")) {
+   define("PLUGIN_VIP_WEB_DIR", Plugin::getWebDir("vip"));
+}
 
 function plugin_version_vip() {
 
@@ -13,8 +19,8 @@ function plugin_version_vip() {
                 'version'        => PLUGIN_VIP_VERSION,
                 'author'         => '<a href="http://www.probesys.com">PROBESYS</a>',
                 'license'        => 'GPLv3+',
-                'homepage'       => 'http://www.probesys.com',
-                'minGlpiVersion' => PLUGIN_VIP_GLPI_MIN_VERSION); // For compatibility / no install in version < 0.85
+                'homepage'       => 'https://github.com/Probesys/glpi-plugins-vip',
+                'minGlpiVersion' => PLUGIN_VIP_GLPI_MIN_VERSION); 
 }
 
 function plugin_vip_check_prerequisites() {
