@@ -24,53 +24,53 @@
  --------------------------------------------------------------------------  */
 
 if (!defined('GLPI_ROOT')) {
-   die("Sorry. You can't access directly to this file");
+    die("Sorry. You can't access directly to this file");
 }
 
-class PluginVipTicket extends CommonDBTM {
+class PluginVipTicket extends CommonDBTM
+{
+    public static $types = array('Ticket');
 
-   static $types = array('Ticket');
+    public static function isUserVip($uid)
+    {
+        global $DB;
 
-   static function isUserVip($uid) {
-      global $DB;
-
-      $vipquery = "SELECT count(*) AS nb
+        $vipquery = "SELECT count(*) AS nb
                    FROM glpi_groups_users
                    JOIN glpi_plugin_vip_groups
                      ON glpi_plugin_vip_groups.id = glpi_groups_users.groups_id
                    WHERE glpi_plugin_vip_groups.isvip = 1
                    AND glpi_groups_users.users_id = ".$uid;
 
-      $vipresult = $DB->query($vipquery);
-      $isvip     = mysqli_fetch_object($vipresult)->nb;
+        $vipresult = $DB->query($vipquery);
+        $isvip     = mysqli_fetch_object($vipresult)->nb;
 
-      if ($isvip) {
-         return true;
-      }
-      return false;
-   }
+        if ($isvip) {
+            return true;
+        }
+        return false;
+    }
 
-   static function isTicketVip($ticketid) {
-      global $DB;
+    public static function isTicketVip($ticketid)
+    {
+        global $DB;
 
-      $isvip = false;
+        $isvip = false;
 
-      $userquery  = "SELECT users_id
+        $userquery  = "SELECT users_id
                      FROM glpi_tickets_users
                      WHERE type = ".CommonITILActor::REQUESTER."
                      AND tickets_id = ".$ticketid;
-      $userresult = $DB->query($userquery);
+        $userresult = $DB->query($userquery);
 
-      while ($uids = mysqli_fetch_object($userresult)) {
-         foreach ($uids as $uid) {
-            $isuservip = self::isUserVip($uid);
-            if ($isuservip) {
-               $isvip = true;
+        while ($uids = mysqli_fetch_object($userresult)) {
+            foreach ($uids as $uid) {
+                $isuservip = self::isUserVip($uid);
+                if ($isuservip) {
+                    $isvip = true;
+                }
             }
-         }
-      }
-      return $isvip;
-   }
-
+        }
+        return $isvip;
+    }
 }
-

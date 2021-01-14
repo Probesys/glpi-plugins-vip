@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR VIP Development Team
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR PROBESYS
+# This file is distributed under the same license as the GLPI - VIP plugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: GLPI - VIP plugin 1.1.1\n"
+"Project-Id-Version: GLPI - VIP plugin 1.4RC1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-11 16:14+0200\n"
+"POT-Creation-Date: 2020-12-17 11:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: inc/group.class.php:56
+#: inc/group.class.php:58
 msgid "VIP management"
 msgstr ""
 
-#: inc/group.class.php:60
+#: inc/group.class.php:62 inc/group.class.php:127
 msgid "VIP group"
 msgstr ""
 
-#: inc/group.class.php:79 inc/profile.class.php:51 inc/profile.class.php:126
+#: inc/group.class.php:81 inc/profile.class.php:52 inc/profile.class.php:130
 msgid "VIP"
 msgstr ""
 
-#: inc/profile.class.php:38
+#: inc/profile.class.php:39
 msgid "Rights management"
-msgstr ""
-
-#: inc/ticket.class.php:201
-#, php-format
-msgid "VIP : %s tickets updated"
 msgstr ""

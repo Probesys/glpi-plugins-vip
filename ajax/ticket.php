@@ -25,32 +25,32 @@
 
 define('GLPI_ROOT', '../../..');
 
-include (GLPI_ROOT."/inc/includes.php");
+include(GLPI_ROOT."/inc/includes.php");
 
 Session::checkLoginUser();
 //Html::header_nocache();
 
-switch($_POST['action']){
+switch ($_POST['action']) {
    case 'getTicket':
       header('Content-Type: application/json; charset=UTF-8"');
       
-      $params = array('entities_id' => $_SESSION['glpiactiveentities'], 
+      $params = array('entities_id' => $_SESSION['glpiactiveentities'],
                       'used'        => array());
       
       if (isset($_POST['items_id'])) {
-         $ticket = new Ticket();
-         $actor  = new Ticket_User();
-         $ticket->getFromDB($_POST['items_id']);
-         $actors = $actor->getActors($_POST['items_id']);
+          $ticket = new Ticket();
+          $actor  = new Ticket_User();
+          $ticket->getFromDB($_POST['items_id']);
+          $actors = $actor->getActors($_POST['items_id']);
 
-         $used = array();
-         if (isset($actors[CommonITILActor::REQUESTER])) {
-            foreach ($actors[CommonITILActor::REQUESTER] as $requesters) {
-               $used[] = $requesters['users_id'];
-            }
-         }
+          $used = array();
+          if (isset($actors[CommonITILActor::REQUESTER])) {
+              foreach ($actors[CommonITILActor::REQUESTER] as $requesters) {
+                  $used[] = $requesters['users_id'];
+              }
+          }
 
-         $params = array('used'        => $used,
+          $params = array('used'        => $used,
                          'entities_id' => $ticket->fields['entities_id']);
       }
 

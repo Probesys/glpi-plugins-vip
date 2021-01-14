@@ -11,9 +11,15 @@
         function init() {
 //            $(document).ready(function () {
             var path = 'plugins/vip/';
+            if(GLPI_PLUGINS_PATH !== 'undefined' && 'vip' in GLPI_PLUGINS_PATH) {
+                var path  = GLPI_PLUGINS_PATH['vip'] + '/';
+             }
             var url = window.location.href.replace(/front\/.*/, path);
             if (window.location.href.indexOf('plugins') > 0) {
                 url = window.location.href.replace(/plugins\/.*/, path);
+            }
+            if (window.location.href.indexOf('marketplace') > 0) {
+                url = window.location.href.replace(/marketplace\/.*/, path);
             }
 
             // Send data

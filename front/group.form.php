@@ -23,15 +23,13 @@
  along with Vip. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------  */
 
-include ("../../../inc/includes.php");
+include("../../../inc/includes.php");
 
 Session::checkRight("plugin_vip", UPDATE);
 
 $grp = new PluginVipGroup();
 
 if (isset($_POST['update_vip_group'])) {
-   $grp->update($_POST);
-   Html::back();
+    $grp->update($_POST);
+    Html::back();
 }
-
-

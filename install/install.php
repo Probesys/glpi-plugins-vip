@@ -32,25 +32,24 @@
  *
  * @return bool for success (will die for most error)
  * */
-function install() {
-   global $DB;
+function install()
+{
+    global $DB;
 
-   $migration = new Migration(100);
+    $migration = new Migration(100);
 
-   // Install script
-   $DB->runFile(GLPI_ROOT."/plugins/vip/install/sql/empty-1.0.0.sql");
+    // Install script
+    $DB->runFile(PLUGIN_VIP_DIR."/install/sql/empty-1.0.0.sql");
 
-   $query = "INSERT INTO glpi_plugin_vip_tickets
+    $query = "INSERT INTO glpi_plugin_vip_tickets
                         SELECT id, '0'
                             FROM glpi_tickets
                   ON DUPLICATE KEY
                                 UPDATE isvip = '0'";
 
-   $DB->query($query) or die("Error inserting ticket in vip Tickets table");
+    $DB->query($query) or die("Error inserting ticket in vip Tickets table");
 
-   $migration->executeMigration();
+    $migration->executeMigration();
 
-   return true;
+    return true;
 }
-
-?>
