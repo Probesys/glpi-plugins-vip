@@ -31,7 +31,6 @@
         init();
         // Start the plugin
         function init() {
-
             object.params = new Array();
             object.params['entities_id'] = 0;
             object.params['page_limit'] = 0;
@@ -50,6 +49,9 @@
             if (GLPI_PLUGINS_PATH !== 'undefined' && 'vip' in GLPI_PLUGINS_PATH) {
                 object.params['plugin_dir'] = '/' + GLPI_PLUGINS_PATH['vip'];
             }
+            if (CFG_GLPI !== 'undefined' && 'root_doc' in CFG_GLPI) {
+                object.params['root_doc'] = CFG_GLPI['root_doc'];
+            }
         }
 
         this.changeRequesterColor = function (vip) {
@@ -66,15 +68,17 @@
             // function to color vip item on the ticket tab form + on the user selector
             function changeRequesterColor(event, xhr, option) {
                 //debugger;
+               
                 // only in ticket form
                 if (location.pathname.indexOf('ticket.form.php') > 0 && option !== undefined) {
+                    
                     $.urlParam = function (url, name) {
                         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
                         if (results != null) {
                             return results[1] || 0;
                         }
                     };
-
+                    
                     // get item id
                     var items_id = $.urlParam(window.location.href, 'id');
 
@@ -106,12 +110,12 @@
                             && option.data !== undefined
                             ) {
                         //debugger;
-                        //console.log('tab = ' + tab);
-                        //console.log('option.url = ' + option.url);
-                        //console.log('option.data = ' + option.data);
-                        //console.log('inputName = ' + inputName);
+//                        console.log('tab = ' + tab);
+//                        console.log('option.url = ' + option.url);
+//                        console.log('option.data = ' + option.data);
+//                        console.log('inputName = ' + inputName);
                         idSelect = $("select[name='" + inputName + "']").attr('id');
-                        //console.log('id = ' + idSelect);
+//                        console.log('id = ' + idSelect);
                         // Get ticket informations
                         $.ajax({
                             url: object.params['root_doc'] + object.params['plugin_dir'] + '/ajax/ticket.php',
@@ -260,7 +264,8 @@
                             if (item_bloc.length !== 0 && $("span[id*='vip_requester']").length === 0) {
                                 //debugger;
                                 $.ajax({
-                                    url: object.params['plugin_dir'] + '/ajax/ticket.php',
+                                    //url: object.params['plugin_dir'] + '/ajax/ticket.php',
+                                    url: object.params['root_doc'] + object.params['plugin_dir'] + '/ajax/ticket.php',
                                     type: "POST",
                                     dataType: "json",
                                     data: {
@@ -277,7 +282,7 @@
                                                 var linkActor = $('a[href="' + searchUrl + '"]');
                                                 if (linkActor.length !== 0 && !linkActor.hasClass('vipActor')) {
                                                     linkActor.addClass('vipActor');
-                                                    linkActor.prepend("&nbsp;<img id='vip_img' src='" + object.params['plugin_dir'] + "/pics/vip.png'>&nbsp;");
+                                                    linkActor.prepend("&nbsp;<img id='vip_img' src='" + object.params['root_doc'] + object.params['plugin_dir'] + "/pics/vip.png'>&nbsp;");
                                                     ticketVip = true;
                                                     var previousUserIncon = linkActor.closest('.actor_row');
                                                     previousUserIncon.addClass('red');
