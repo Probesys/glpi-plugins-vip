@@ -107,8 +107,8 @@ class PluginVipGroup extends CommonDBTM
         if (isset($groups[0])) {
             unset($groups[0]);
         }
-        $restrict = "`groups_id` IN (".implode(',', array_keys($groups)).")";
-        $managers = getAllDatasFromTable('glpi_groups_users', $restrict);
+        $restrict = ['groups_id' => array_keys($groups)];
+        $managers = getAllDataFromTable('glpi_groups_users', $restrict);
 
         $vip = array();
         foreach ($managers as $manager) {

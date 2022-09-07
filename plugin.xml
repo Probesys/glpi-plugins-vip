@@ -3,7 +3,7 @@
    <name>VIP</name>
    <key>vip</key>
    <state>stable</state>
-   <logo>https://raw.githubusercontent.com/Probesys/glpi-plugins-vip/github/pics/VIP-logo.png</logo>
+   <logo>https://raw.githubusercontent.com/Probesys/glpi-plugins-vip/master/pics/VIP-logo.png</logo>
    <description>
       <short>
          <fr><![CDATA[Ce plugin permet de paramétrer des groupes VIP.]]></fr>
@@ -17,7 +17,7 @@
    <homepage>https://github.com/Probesys/glpi-plugins-vip</homepage>
    <download>https://github.com/Probesys/glpi-plugins-vip/releases</download>
    <issues>https://github.com/Probesys/glpi-plugins-vip/issues</issues>
-   <readme>https://github.com/Probesys/glpi-plugins-vip/README.md</readme>
+   <readme>https://github.com/Probesys/glpi-plugins-vip/blob/master/README.md</readme>
    <authors>
 	   <author>PROBESYS</author>
 	   <author>Philippe GODOT</author>
